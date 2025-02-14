@@ -1,0 +1,51 @@
+//24k-0921 Hassan Rehman
+#include <iostream>
+#include <string>
+using namespace std;
+
+class FitnessTracker {
+    private:
+        string userName;
+        int dailyStepGoal;
+        int stepsTaken;
+        double caloriesBurned;
+
+    public:
+        FitnessTracker(string name, int goal) {
+            userName = name;
+            dailyStepGoal = goal;
+            stepsTaken = 0;
+            caloriesBurned = 0.0;
+        }
+
+        void logSteps(int steps) {
+            stepsTaken += steps;
+        }
+
+        void calculateCalories() {
+            caloriesBurned = stepsTaken * 0.04;
+        }
+
+        void showProgress() {
+            cout << "Name: " << userName << endl;
+            cout << "Daily Step Goal: " << dailyStepGoal << endl;
+            cout << "Steps Taken Today: " << stepsTaken << endl;
+            cout << "Calories Burned: " << caloriesBurned << endl;
+
+            if (stepsTaken >= dailyStepGoal) {
+                cout << endl << "Fitness Goal Met For Today!" << endl << endl;
+            } else {
+                cout << endl << dailyStepGoal - stepsTaken << " steps remaining to reach your goal!" << endl << endl;
+            }
+        }
+};
+
+int main() {
+    FitnessTracker ft("Laiba", 20000);
+    ft.logSteps(5000);
+    ft.calculateCalories();
+    ft.showProgress();
+    ft.logSteps(15000);
+    ft.calculateCalories();
+    ft.showProgress();
+}
