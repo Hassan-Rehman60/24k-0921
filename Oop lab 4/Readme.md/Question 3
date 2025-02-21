@@ -1,0 +1,54 @@
+#include <iostream> #include <stdbool.h> #include <string> using namespace std;
+
+class Car { private: string Brand; string Model; float RentalPrice; bool Availability;
+
+public: Car() { Brand = "unknown"; Model = "Generic"; RentalPrice = 0.0; Availability = true; }
+
+Car(string BrandName, string ModelName, float RentPrice, bool Avail) {
+    Brand = BrandName;
+    Model = ModelName;
+    RentalPrice = RentPrice;
+    Availability = Avail;
+}
+
+Car(const Car &c) {
+    Brand = c.Brand;
+    Model = c.Model;
+    RentalPrice = c.RentalPrice;
+    Availability = c.Availability;
+}
+
+~Car() {
+    cout << "Deleting Car: " << Brand << " " << Model << endl;
+}
+
+void UpdateCarDetails(string BrandName, string ModelName, float RentPrice) {
+    Brand = BrandName;
+    Model = ModelName;
+    RentalPrice = RentPrice;
+}
+
+void displayCarInfo() {
+    cout << "\nCar Brand: " << Brand << endl;
+    cout << "Car Model: " << Model << endl;
+    cout << "Rental Cost per Day: $" << RentalPrice << endl;
+    cout << "Availability Status: " << (Availability ? "Available" : "Rented") << endl;
+}
+
+};
+
+int main() { Car primaryCar("Ford", "Mustang", 75.0, true); cout << "Initial Car Details:" << endl; primaryCar.displayCarInfo();
+
+Car duplicateCar = primaryCar;
+primaryCar.UpdateCarDetails("Nissan", "Altima", 90.0);
+
+cout << "\nUpdated Car Details:" << endl;
+primaryCar.displayCarInfo();
+
+cout << "\nCopied Car Details:" << endl;
+duplicateCar.displayCarInfo();
+
+return 0;
+
+}
+
