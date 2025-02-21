@@ -1,0 +1,46 @@
+#include <iostream> #include <stdbool.h> #include <string> using namespace std;
+
+class Car { private: string Brand; string Model; float RentalPrice; bool Availability;
+
+public: Car() { Brand = "unknown"; Model = "Generic"; RentalPrice = 0.0; Availability = true; }
+
+void UpdateCarDetails(string BrandName, string ModelName, float RentPrice) {
+    Brand = BrandName;
+    Model = ModelName;
+    RentalPrice = RentPrice;
+}
+
+void RentCar() {
+    if (Availability) {
+        Availability = false;
+        cout << "Car rental successful! Enjoy your ride.\n" << endl;
+    } else {
+        cout << "Apologies, this car is currently rented.\n" << endl;
+    }
+}
+
+void displayCarInfo() {
+    cout << "Brand: " << Brand << endl;
+    cout << "Model: " << Model << endl;
+    cout << "Daily Rental Price: $" << RentalPrice << endl;
+    cout << "Status: " << (Availability ? "Available for Rent" : "Currently Unavailable") << endl;
+}
+
+};
+
+int main() { Car Vehicle1; cout << "Initial Car Information" << endl; Vehicle1.displayCarInfo();
+
+Vehicle1.RentCar();
+
+Vehicle1.UpdateCarDetails("Honda", "City", 100.0);
+cout << "\nUpdated Car Information:\n";
+Vehicle1.displayCarInfo();
+
+cout << "\nAttempting to Rent the Car Again:\n";
+Vehicle1.RentCar();
+Vehicle1.displayCarInfo();
+
+return 0;
+
+}
+
