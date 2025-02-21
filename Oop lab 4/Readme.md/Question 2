@@ -35,5 +35,4 @@ void displayCarInfo() {
 
 };
 
-int main() { Car VehicleRental; cout << "Car Information:" << endl; VehicleRental.displayCarInfo(); VehicleRental.RentCar(); VehicleRental.UpdateCarDetails("BMW", "5", 120.0); cout << "\nUpdated Car Information:\n"; VehicleRental.displayCarInfo(); cout << "\nPost-Rental Status:\n"; VehicleRental.RentCar(); VehicleRental.displayCarInfo(); }
-
+int main() { Car VehicleRental; 
