@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SecuritySystem {
+    string securityLevel;
+
+public:
+    SecuritySystem(string level) : securityLevel(level) {
+        cout << "Security System activated at level: " << securityLevel << endl;
+    }
+
+    ~SecuritySystem() {}
+
+    string getSecurityLevel() {
+        return securityLevel;
+    }
+};
+
+class IntelligentHome {
+    SecuritySystem security;
+
+public:
+    IntelligentHome(string level) : security(level) {}
+
+    void showDetails() {
+        cout << "Intelligent Home Details: " << endl;
+        cout << "Security Level: " << security.getSecurityLevel() << endl;
+    }
+
+    ~IntelligentHome() {}
+};
+
+int main() {
+    IntelligentHome myHome("High");
+    myHome.showDetails();
+
+    return 0;
+}
