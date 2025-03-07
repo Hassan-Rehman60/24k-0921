@@ -1,0 +1,72 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Task;
+
+class Worker {
+    string role;
+    string workerName;
+    int taskCount = 0;
+    Task* tasks[10];
+
+public:
+    Worker(string workerRole, string name) : role(workerRole), workerName(name) {}
+
+    string getWorkerName() {
+        return workerName;
+    }
+
+    string getRole() {
+        return role;
+    }
+};
+
+class Task {
+    string taskTitle;
+    string dueDate;
+    int workerCount = 0;
+    Worker* workers[10];
+
+public:
+    Task(string title, string deadline) : taskTitle(title), dueDate(deadline) {}
+
+    void assignWorker(Worker* worker) {
+        workers[workerCount] = worker;
+        workerCount++;
+    }
+
+    void showTaskDetails() {
+        cout << "Task Title: " << taskTitle << endl;
+        cout << "Due Date: " << dueDate << endl;
+        cout << "\nWorkers Assigned to This Task:\n" << endl;
+        for (int i = 0; i < workerCount; i++) {
+            cout << "Worker Name: " << workers[i]->getWorkerName() << endl;
+            cout << "Role: " << workers[i]->getRole() << endl;
+        }
+    }
+
+    string getTaskTitle() {
+        return taskTitle;
+    }
+
+    string getDueDate() {
+        return dueDate;
+    }
+};
+
+int main() {
+    Worker worker1("CEO", "Taaha");
+    Worker worker2("COO", "Syed");
+
+    Task task1("Game Development", "29th Feb 2030");
+    task1.assignWorker(&worker1);
+    task1.assignWorker(&worker2);
+    task1.showTaskDetails();
+
+    Task task2("Movie Production", "11th Nov 2027");
+    task2.assignWorker(&worker1);
+    task2.showTaskDetails();
+
+    return 0;
+}
