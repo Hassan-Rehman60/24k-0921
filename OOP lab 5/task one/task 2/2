@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Learner {
+    int regNo;
+    string fullName;
+    int* marks;
+
+public:
+    Learner(int reg, string name, int scoreList[]) : regNo(reg), fullName(name) {
+        marks = new int[10];
+        for (int i = 0; i < 10; i++) {
+            marks[i] = scoreList[i];
+        }
+    }
+
+    Learner(const Learner& other) : regNo(other.regNo), fullName(other.fullName) {
+        marks = new int[10];
+        for (int i = 0; i < 10; i++) {
+            marks[i] = other.marks[i];
+        }
+    }
+
+    ~Learner() {
+        delete[] marks;
+    }
+
+    void showInfo() {
+        cout << "Registration Number: " << regNo << endl;
+        cout << "Full Name: " << fullName << endl;
+        cout << "Marks: ";
+        for (int i = 0; i < 10; i++) {
+            cout << marks[i] << " ";
+        }
+        cout << "\n" << endl;
+    }
+};
+
+int main() {
+    int marksArray[] = {10, 22, 44, 67, 98, 34, 55, 42, 55, 99};
+    Learner student1(1111, "Taaha", marksArray);
+    cout << "Learner Details:\n" << endl;
+    student1.showInfo();
+
+    Learner copyStudent = student1;
+    cout << "Learner Details (Copy):\n" << endl;
+    copyStudent.showInfo();
+
+    return 0;
+}
