@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Flat {
+    int flatID;
+    string location;
+    string* owner;
+
+public:
+    Flat(int id, string loc, string& ownerName) : flatID(id), location(loc) {
+        owner = new string(ownerName);
+    }
+
+    Flat(const Flat& source) : flatID(source.flatID), location(source.location) {
+        owner = new string(*source.owner);
+    }
+
+    void showDetails() {
+        cout << "Flat ID: " << flatID << endl;
+        cout << "Location: " << location << endl;
+        cout << "Owner: " << *owner << endl << endl;
+    }
+
+    ~Flat() {
+        delete owner;
+    }
+};
+
+int main() {
+    string ownerName = "Gokys";
+    Flat flat1(1, "Gulistan-e-Johar", ownerName);
+    Flat flat2(2, "Gulshan", ownerName);
+
+    Flat copyFlat1 = flat1;
+    Flat copyFlat2 = flat2;
+
+    flat1.showDetails();
+    flat2.showDetails();
+    copyFlat1.showDetails();
+    copyFlat2.showDetails();
+
+    return 0;
+}
