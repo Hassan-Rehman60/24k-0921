@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Physician {
+    string doctorName;
+    string field;
+    int yearsExperience;
+
+public:
+    Physician(string name, string specialty, int experience) : doctorName(name), field(specialty), yearsExperience(experience) {}
+
+    string getDoctorName() {
+        return doctorName;
+    }
+
+    string getField() {
+        return field;
+    }
+
+    int getExperience() {
+        return yearsExperience;
+    }
+};
+
+class MedicalCenter {
+    string centerName;
+    Physician** physicians;
+    int capacity;
+    int doctorCount;
+
+public:
+    MedicalCenter(string name) : centerName(name) {
+        doctorCount = 0;
+        capacity = 50;
+        physicians = new Physician*[capacity];
+    }
+
+    void hirePhysician(Physician* doc) {
+        if (doctorCount == capacity) {
+            cout << "Physician limit reached!" << endl;
+        } else {
+            physicians[doctorCount] = doc;
+            doctorCount++;
+            cout << "Physician added successfully.\n" << endl;
+        }
+    }
+
+    bool dismissPhysician(Physician* doc) {
+        for (int i = 0; i < doctorCount; i++) {
+            if (physicians[i]->getDoctorName() == doc->getDoctorName()) {
+                delete physicians[i];
+                for (int j = i; j < doctorCount - 1; j++) {
+                    physicians[j] = physicians[j + 1];
+                }
+                doctorCount--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void transferPhysician(Physician* doc, MedicalCenter* newCenter) {
+        if (dismissPhysician(doc)) {
+            newCenter->hirePhysician(doc);
+            cout << "Physician " << doc->getDoctorName() << " moved to " << newCenter->centerName << endl;
+        } else {
+            cout << "Physician not found!" << endl;
+        }
+    }
+
+    void displayDetails() {
+        cout << "Medical Center Name: " << centerName << endl;
+        cout << "List of Physicians:\n" << endl;
+        for (int i = 0; i < doctorCount; i++) {
+            cout << "Physician Name: " << physicians[i]->getDoctorName() << endl;
+            cout << "Specialty: " << physicians[i]->getField() << endl;
+            cout << "Experience: " << physicians[i]->getExperience() << " years\n" << endl;
+        }
+    }
+};
+
+int main() {
+    MedicalCenter center1("Aga Khan Hospital");
+    Physician phys1("Taaha", "Neurosurgeon", 20);
+    Physician phys2("Syed", "Cardiovascular Surgeon", 20);
+    center1.hirePhysician(&phys1);
+    center1.hirePhysician(&phys2);
+    center1.displayDetails();
+
+    MedicalCenter center2("South City Hospital");
+    Physician phys3("Gokys", "Physiotherapist", 18);
+    center2.hirePhysician(&phys3);
+    center1.transferPhysician(&phys2, &center2);
+    center1.dismissPhysician(&phys2);
+
+    center1.displayDetails();
+    center2.displayDetails();
+
+    return 0;
+}
