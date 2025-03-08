@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Transport {
+public:
+    string manufacturer;
+    int velocity;
+    Transport(string m, int v) : manufacturer(m), velocity(v) {}
+    void showInfo() { cout << "Manufacturer: " << manufacturer << "\nVelocity: " << velocity << " km/h\n"; }
+};
+
+class Automobile : public Transport {
+public:
+    int capacity;
+    Automobile(string m, int v, int c) : Transport(m, v), capacity(c) {}
+    void showInfo() { cout << "Manufacturer: " << manufacturer << "\nVelocity: " << velocity << " km/h\nCapacity: " << capacity << " seats\n"; }
+};
+
+class EV : public Automobile {
+public:
+    int batteryDuration;
+    EV(string m, int v, int c, int b) : Automobile(m, v, c), batteryDuration(b) {}
+    void showInfo() { cout << "Manufacturer: " << manufacturer << "\nVelocity: " << velocity << " km/h\nCapacity: " << capacity << " seats\nBattery Duration: " << batteryDuration << " hours\n"; }
+};
+
+int main() {
+    EV electricVehicle("Tesla Model S", 250, 5, 50);
+    electricVehicle.showInfo();
+    return 0;
+}
