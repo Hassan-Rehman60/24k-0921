@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class BankAccount {
+protected:
+    int accID;
+    float funds;
+
+public:
+    BankAccount(int id, float amt) : accID(id), funds(amt) {}
+
+    virtual void showInfo() {
+        cout << "Account ID: " << accID << endl;
+        cout << "Balance: " << funds << endl;
+    }
+
+    virtual ~BankAccount() {}
+};
+
+class Savings : public BankAccount {
+private:
+    float interest;
+
+public:
+    Savings(int id, float amt, float rate) : BankAccount(id, amt), interest(rate) {}
+
+    void showInfo() override {
+        BankAccount::showInfo();
+        cout << "Interest Rate: " << interest << "%" << endl;
+    }
+};
+
+class Checking : public BankAccount {
+private:
+    float overdraft;
+
+public:
+    Checking(int id, float amt, float limit) : BankAccount(id, amt), overdraft(limit) {}
+
+    void showInfo() override {
+        BankAccount::showInfo();
+        cout << "Overdraft Limit: " << overdraft << endl;
+    }
+};
+
+int main() {
+    int id;
+    float amt, rate, limit;
+
+    cout << "Enter Savings Account details:\n";
+    cout << "Account ID: ";
+    cin >> id;
+    cout << "Balance: ";
+    cin >> amt;
+    cout << "Interest Rate in %: ";
+    cin >> rate;
+    Savings savingsAcc(id, amt, rate);
+
+    cout << "\nEnter Checking Account details:\n";
+    cout << "Account ID: ";
+    cin >> id;
+    cout << "Balance: ";
+    cin >> amt;
+    cout << "Overdraft Limit: ";
+    cin >> limit;
+    Checking checkingAcc(id, amt, limit);
+
+    cout << "\nSavings Account Details:\n";
+    savingsAcc.showInfo();
+
+    cout << "\nChecking Account Details:\n";
+    checkingAcc.showInfo();
+
+    return 0;
+}
