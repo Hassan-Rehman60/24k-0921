@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Individual {
+protected:
+    string fullName;
+    int years;
+
+public:
+    Individual(string f, int y) : fullName(f), years(y) {}
+
+    virtual void showInfo() {
+        cout << "Name: " << fullName << endl;
+        cout << "Age: " << years << endl;
+    }
+};
+
+class Educator : virtual public Individual {
+protected:
+    string expertise;
+
+public:
+    Educator(string f, int y, string e) : Individual(f, y), expertise(e) {}
+
+    virtual void showInfo() {
+        Individual::showInfo();
+        cout << "Expertise: " << expertise << endl;
+    }
+};
+
+class Scientist : virtual public Individual {
+protected:
+    string fieldOfStudy;
+
+public:
+    Scientist(string f, int y, string field) : Individual(f, y), fieldOfStudy(field) {}
+
+    virtual void showInfo() {
+        Individual::showInfo();
+        cout << "Field of Study: " << fieldOfStudy << endl;
+    }
+};
+
+class SeniorProfessor : public Educator, public Scientist {
+private:
+    int researchPapers;
+
+public:
+    SeniorProfessor(string f, int y, string e, string field, int papers)
+        : Individual(f, y), Educator(f, y, e), Scientist(f, y, field), researchPapers(papers) {}
+
+    void showInfo() {
+        Educator::showInfo();
+        Scientist::showInfo();
+        cout << "Research Papers: " << researchPapers << endl;
+    }
+};
+
+int main() {
+    SeniorProfessor prof("Dr. Ameer", 45, "Artificial Intelligence", "Machine Learning", 25);
+    cout << "Professor Details:" << endl;
+    prof.showInfo();
+    return 0;
+}
