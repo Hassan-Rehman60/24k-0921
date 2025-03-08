@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Gadget {
+protected:
+    int gadgetID;
+    bool powerState;
+
+public:
+    Gadget(int id, bool state) : gadgetID(id), powerState(state) {}
+
+    virtual void showInfo() {
+        cout << "Gadget ID: " << gadgetID << endl;
+        cout << "Power Status: " << (powerState ? "ON" : "OFF") << endl;
+    }
+};
+
+class Mobile : virtual public Gadget {
+protected:
+    float displaySize;
+
+public:
+    Mobile(int id, bool state, float size) : Gadget(id, state), displaySize(size) {}
+
+    void showInfo() override {
+        Gadget::showInfo();
+        cout << "Display Size: " << displaySize << " inches" << endl;
+    }
+};
+
+class Wearable : virtual public Gadget {
+protected:
+    bool heartMonitor;
+
+public:
+    Wearable(int id, bool state, bool monitor) : Gadget(id, state), heartMonitor(monitor) {}
+
+    void showInfo() override {
+        Gadget::showInfo();
+        cout << "Heart Rate Monitor: " << (heartMonitor ? "Yes" : "No") << endl;
+    }
+};
+
+class SmartGadget : public Mobile, public Wearable {
+private:
+    int stepCount;
+
+public:
+    SmartGadget(int id, bool state, float size, bool monitor, int steps)
+        : Gadget(id, state), Mobile(id, state, size), Wearable(id, state, monitor), stepCount(steps) {}
+
+    void showInfo() override {
+        Gadget::showInfo();
+        cout << "Display Size: " << displaySize << " inches" << endl;
+        cout << "Heart Rate Monitor: " << (heartMonitor ? "Yes" : "No") << endl;
+        cout << "Step Count: " << stepCount << " steps" << endl;
+    }
+};
+
+int main() {
+    int id, steps;
+    bool state, monitor;
+    float size;
+
+    cout << "Enter Gadget ID: ";
+    cin >> id;
+    cout << "Enter Power State (1 for ON, 0 for OFF): ";
+    cin >> state;
+    cout << "Enter Display Size (in inches): ";
+    cin >> size;
+    cout << "Heart Rate Monitor Available? (1 for Yes, 0 for No): ";
+    cin >> monitor;
+    cout << "Enter Step Count: ";
+    cin >> steps;
+
+    SmartGadget device(id, state, size, monitor, steps);
+
+    cout << "\nSmart Gadget Details:\n";
+    device.showInfo();
+
+    return 0;
+}
