@@ -1,0 +1,76 @@
+#include <iostream> #include <string> using namespace std;
+
+class Device
+{
+protected:
+    int deviceID;
+    string deviceName;
+    bool status;
+
+public:
+    Device(int id, string name) : deviceID(id), deviceName(name), status(false) {}
+    void turnOn() { status = true; }
+    void turnOff() { status = false; }
+    string getStatus() { return status ? "On" : "Off"; }
+    virtual void displayInfo() { cout << "Device: " << deviceName << " is " << getStatus() << endl; }
+};
+
+class Light : public Device
+{
+    int brightnessLevel;
+    string colorMode;
+
+public:
+    Light(int id, string name, int brightness, string color) : Device(id, name), brightnessLevel(brightness), colorMode(color) {}
+    void displayInfo() override { cout << "Light: " << deviceName << " is " << getStatus() << " with brightness " << brightnessLevel << " and color " << colorMode << endl; }
+};
+
+class Thermostat : public Device
+{
+    int temperature;
+
+public:
+    Thermostat(int id, string name, int temp) : Device(id, name), temperature(temp) {}
+    string getStatus() override { return "Temperature: " + to_string(temperature) + "C"; }
+};
+
+class SecurityCamera : public Device
+{
+    int resolution;
+    bool recordingStatus;
+
+public:
+    SecurityCamera(int id, string name, int res) : Device(id, name), resolution(res), recordingStatus(false) {}
+    void turnOn() override { recordingStatus = true; }
+    void turnOff() override { recordingStatus = false; }
+    void displayInfo() override { cout << "Camera: " << deviceName << " is " << (recordingStatus ? "Recording" : "Not Recording") << " at " << resolution << "p" << endl; }
+};
+
+class SmartPlug : public Device
+{
+    int powerConsumption;
+
+public:
+    SmartPlug(int id, string name, int power) : Device(id, name), powerConsumption(power) {}
+    void displayInfo() override { cout << "Smart Plug: " << deviceName << " is " << getStatus() << " consuming " << powerConsumption << "W" << endl; }
+};
+
+int main()
+{
+    Light light1(1, "Living Room Light", 75, "Warm White");
+    Thermostat thermo1(2, "Room Thermostat", 22);
+    SecurityCamera cam1(3, "Front Door Camera", 1080);
+    SmartPlug plug1(4, "TV Plug", 150);
+
+    light1.turnOn();
+    thermo1.turnOn();
+    cam1.turnOn();
+    plug1.turnOn();
+
+    light1.displayInfo();
+    cout << thermo1.getStatus() << endl;
+    cam1.displayInfo();
+    plug1.displayInfo();
+
+    return 0;
+}
