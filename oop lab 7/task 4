@@ -1,0 +1,115 @@
+#include <iostream>
+#include <string> 
+using namespace std;
+
+class Person 
+{
+protected:
+    int personID;
+    string name;
+    int age;
+    string contactNumber;
+
+public:
+    Person(int id, string n, int a, string contact) 
+        : personID(id), name(n), age(a), contactNumber(contact) {}
+
+    virtual void displayInfo() 
+    { 
+        cout << "ID: " << personID 
+             << ", Name: " << name 
+             << ", Age: " << age 
+             << ", Contact: " << contactNumber << endl; 
+    }
+};
+
+class Patient : public Person 
+{
+    string medicalHistory;
+    string doctorAssigned;
+
+public:
+    Patient(int id, string n, int a, string contact, string history, string doctor) 
+        : Person(id, n, a, contact), medicalHistory(history), doctorAssigned(doctor) {}
+
+    void displayInfo() override 
+    { 
+        cout << "Patient ID: " << personID 
+             << ", Name: " << name 
+             << ", Age: " << age 
+             << ", Contact: " << contactNumber 
+             << ", History: " << medicalHistory 
+             << ", Doctor: " << doctorAssigned << endl; 
+    }
+};
+
+class Doctor : public Person 
+{
+    string specialization;
+    double consultationFee;
+    int patientList;
+
+public:
+    Doctor(int id, string n, int a, string contact, string spec, double fee, int patients) 
+        : Person(id, n, a, contact), specialization(spec), consultationFee(fee), patientList(patients) {}
+
+    void displayInfo() override 
+    { 
+        cout << "Doctor ID: " << personID 
+             << ", Name: " << name 
+             << ", Specialization: " << specialization 
+             << ", Fee: " << consultationFee 
+             << ", Patients: " << patientList << endl; 
+    }
+};
+
+class Nurse : public Person 
+{
+    string assignedWard;
+    string shiftTimings;
+
+public:
+    Nurse(int id, string n, int a, string contact, string ward, string shift) 
+        : Person(id, n, a, contact), assignedWard(ward), shiftTimings(shift) {}
+
+    void displayInfo() override 
+    { 
+        cout << "Nurse ID: " << personID 
+             << ", Name: " << name 
+             << ", Ward: " << assignedWard 
+             << ", Shift: " << shiftTimings << endl; 
+    }
+};
+
+class Administrator : public Person 
+{
+    string department;
+    double salary;
+
+public:
+    Administrator(int id, string n, int a, string contact, string dept, double sal) 
+        : Person(id, n, a, contact), department(dept), salary(sal) {}
+
+    void displayInfo() override 
+    { 
+        cout << "Admin ID: " << personID 
+             << ", Name: " << name 
+             << ", Department: " << department 
+             << ", Salary: " << salary << endl; 
+    }
+};
+
+int main() 
+{
+    Patient p1(1, "Hassan", 25, "03001234567", "Diabetes", "Dr. Kabir");
+    Doctor d1(2, "Kabir", 40, "03111234567", "Cardiology", 5000, 50);
+    Nurse n1(3, "Ebad", 30, "03221234567", "ICU", "Night");
+    Administrator a1(4, "Abdy", 35, "03331234567", "HR", 70000);
+
+    p1.displayInfo();
+    d1.displayInfo();
+    n1.displayInfo();
+    a1.displayInfo();
+
+    return 0;
+}
