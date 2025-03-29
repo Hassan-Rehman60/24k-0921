@@ -1,0 +1,129 @@
+#include <iostream>
+#include <string> 
+using namespace std;
+
+class Ticket 
+{
+protected:
+    int ticketID;
+    string passengerName;
+    string destination;
+
+public:
+    Ticket(int id, string name, string dest) 
+        : ticketID(id), passengerName(name), destination(dest) {}
+
+    virtual void reserve() 
+    { 
+        cout << "Ticket reserved for " << passengerName << " to " << destination << endl; 
+    }
+
+    virtual void cancel() 
+    { 
+        cout << "Ticket for " << passengerName << " has been canceled" << endl; 
+    }
+
+    virtual void displayTicketInfo() 
+    { 
+        cout << "Ticket ID: " << ticketID 
+             << ", Passenger: " << passengerName 
+             << ", Destination: " << destination << endl; 
+    }
+};
+
+class FlightTicket : public Ticket 
+{
+    string airlineName;
+    string flightNumber;
+    string seatClass;
+
+public:
+    FlightTicket(int id, string name, string dest, string airline, string flightNo, string seat) 
+        : Ticket(id, name, dest), airlineName(airline), flightNumber(flightNo), seatClass(seat) {}
+
+    void displayTicketInfo() override 
+    { 
+        cout << "Flight Ticket: " << passengerName 
+             << " on " << airlineName 
+             << " Flight " << flightNumber 
+             << " to " << destination 
+             << " in " << seatClass << " class" << endl; 
+    }
+};
+
+class TrainTicket : public Ticket 
+{
+    int trainNumber;
+    string coachType;
+    string departureTime;
+
+public:
+    TrainTicket(int id, string name, string dest, int trainNo, string coach, string time) 
+        : Ticket(id, name, dest), trainNumber(trainNo), coachType(coach), departureTime(time) {}
+
+    void displayTicketInfo() override 
+    { 
+        cout << "Train Ticket: " << passengerName 
+             << " on Train " << trainNumber 
+             << " to " << destination 
+             << " in " << coachType 
+             << " coach, Departure: " << departureTime << endl; 
+    }
+};
+
+class BusTicket : public Ticket 
+{
+    string busCompany;
+    int seatNumber;
+
+public:
+    BusTicket(int id, string name, string dest, string company, int seat) 
+        : Ticket(id, name, dest), busCompany(company), seatNumber(seat) {}
+
+    void displayTicketInfo() override 
+    { 
+        cout << "Bus Ticket: " << passengerName 
+             << " with " << busCompany 
+             << " to " << destination 
+             << " at Seat " << seatNumber << endl; 
+    }
+};
+
+class ConcertTicket : public Ticket 
+{
+    string artistName;
+    string venue;
+    string seatType;
+
+public:
+    ConcertTicket(int id, string name, string artist, string ven, string seat) 
+        : Ticket(id, name, artist), artistName(artist), venue(ven), seatType(seat) {}
+
+    void displayTicketInfo() override 
+    { 
+        cout << "Concert Ticket: " << passengerName 
+             << " for " << artistName 
+             << " at " << venue 
+             << " in " << seatType << " section" << endl; 
+    }
+};
+
+int main() 
+{
+    FlightTicket ft(1, "Hassan", "Karachi", "AirX", "AX123", "Economy");
+    TrainTicket tt(2, "Raahim", "Lahore", 789, "Sleeper", "10:00 AM");
+    BusTicket bt(3, "Saboor", "Islamabad", "BusCo", 12);
+    ConcertTicket ct(4, "Taaha", "Karachi", "Rock Band", "StadiumX", "VIP");
+
+    ft.reserve();
+    tt.reserve();
+    bt.reserve();
+    ct.reserve();
+
+    ft.displayTicketInfo();
+    tt.displayTicketInfo();
+    bt.displayTicketInfo();
+    ct.displayTicketInfo();
+
+    return 0;
+}
