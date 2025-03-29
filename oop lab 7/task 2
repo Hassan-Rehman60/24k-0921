@@ -1,0 +1,99 @@
+#include <iostream>
+#include <string> 
+using namespace std;
+
+class Product
+{
+protected:
+    int productID;
+    string productName;
+    double price;
+    int stockQuantity;
+
+public:
+    Product(int id, string name, double p, int stock) 
+        : productID(id), productName(name), price(p), stockQuantity(stock) {}
+
+    virtual double calculateTotalPrice(int quantity) 
+    { 
+        return price * quantity; 
+    }
+
+    virtual void displayProductInfo() 
+    { 
+        cout << "Product: " << productName 
+             << ", Price: $" << price 
+             << ", Stock: " << stockQuantity << endl; 
+    }
+};
+
+class Electronics : public Product
+{
+    int warrantyPeriod;
+    string brand;
+
+public:
+    Electronics(int id, string name, double p, int stock, int warranty, string br) 
+        : Product(id, name, p, stock), warrantyPeriod(warranty), brand(br) {}
+
+    void displayProductInfo() override 
+    { 
+        cout << "Electronics: " << productName 
+             << ", Brand: " << brand 
+             << ", Warranty: " << warrantyPeriod << " years" 
+             << ", Price: $" << price << endl; 
+    }
+};
+
+class Clothing : public Product
+{
+    string size;
+    string fabricMaterial;
+
+public:
+    Clothing(int id, string name, double p, int stock, string s, string fabric) 
+        : Product(id, name, p, stock), size(s), fabricMaterial(fabric) {}
+
+    void displayProductInfo() override 
+    { 
+        cout << "Clothing: " << productName 
+             << ", Size: " << size 
+             << ", Fabric: " << fabricMaterial 
+             << ", Price: $" << price << endl; 
+    }
+};
+
+class FoodItem : public Product
+{
+    string expirationDate;
+    int calories;
+
+public:
+    FoodItem(int id, string name, double p, int stock, string expDate, int cal) 
+        : Product(id, name, p, stock), expirationDate(expDate), calories(cal) {}
+
+    void displayProductInfo() override 
+    { 
+        cout << "Food Item: " << productName 
+             << ", Expiration Date: " << expirationDate 
+             << ", Calories: " << calories 
+             << ", Price: $" << price << endl; 
+    }
+};
+
+int main()
+{
+    Electronics e1(1, "Smartphone", 699.99, 10, 2, "BrandX");
+    Clothing c1(2, "T-Shirt", 19.99, 50, "L", "Cotton");
+    FoodItem f1(3, "Cereal", 4.99, 100, "2025-12-31", 150);
+
+    e1.displayProductInfo();
+    c1.displayProductInfo();
+    f1.displayProductInfo();
+
+    int quantity = 2;
+    cout << "Total Price for " << quantity << " " << e1.productName 
+         << ": $" << e1.calculateTotalPrice(quantity) << endl;
+
+    return 0;
+}
