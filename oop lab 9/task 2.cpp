@@ -39,8 +39,8 @@ public:
 };
 
 int main() {
-    MenuItem* m1 = new Appetizer("Spring Rolls", 5.99);
-    MenuItem* m2 = new MainCourse("Grilled Chicken", 12.50);
+    MenuItem* m1 = new Appetizer("chicken qorma", 5.99);
+    MenuItem* m2 = new MainCourse("paneer reshmi handi", 12.50);
 
     m1->showDetails();
     m1->prepare();
